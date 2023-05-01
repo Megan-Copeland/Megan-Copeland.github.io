@@ -541,72 +541,86 @@ section .container {
 .interests .icon-box:hover {
   background: rgba(255, 255, 255, 0.12);
 }
-    </script>
-  </body>
-</html>
 
-.intersts .mindmap {
-  font-size: 16px;
-  font-family: Arial, sans-serif;
-  line-height: 1.5;
-  margin: 20px;
-  padding: 0;
+/*--------------------------------------------------------------
+# Testimonials
+--------------------------------------------------------------*/
+.testimonials .testimonials-carousel,
+.testimonials .testimonials-slider {
+  overflow: hidden;
+}
+
+.testimonials .testimonial-item {
+  box-sizing: content-box;
+  min-height: 320px;
+}
+
+.testimonials .testimonial-item .testimonial-img {
+  width: 90px;
+  border-radius: 50%;
+  margin: -40px 0 0 40px;
+  position: relative;
+  z-index: 2;
+  border: 6px solid rgba(255, 255, 255, 0.12);
+}
+
+.testimonials .testimonial-item h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0 5px 45px;
   color: #fff;
 }
 
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  text-align: center;
+.testimonials .testimonial-item h4 {
+  font-size: 14px;
+  color: #999;
+  margin: 0 0 0 45px;
 }
 
-ul li {
+.testimonials .testimonial-item .quote-icon-left,
+.testimonials .testimonial-item .quote-icon-right {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 26px;
+}
+
+.testimonials .testimonial-item .quote-icon-left {
   display: inline-block;
+  left: -5px;
   position: relative;
-  padding: 10px 20px;
-  background-color: #333;
-  border-radius: 20px;
-  margin: 0 10px;
-  cursor: pointer;
-  transition: all 0.5s ease;
 }
 
-ul li:hover {
-  background-color: #fff;
-  color: #333;
+.testimonials .testimonial-item .quote-icon-right {
+  display: inline-block;
+  right: -5px;
+  position: relative;
+  top: 10px;
 }
 
-ul li ul {
-  visibility: hidden;
-  opacity: 0;
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: all 0.5s ease;
+.testimonials .testimonial-item p {
+  font-style: italic;
+  margin: 0 15px 0 15px;
+  padding: 20px 20px 60px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+  border-radius: 6px;
+  position: relative;
+  z-index: 1;
 }
 
-ul li:hover > ul {
-  visibility: visible;
+.testimonials .swiper-pagination {
+  margin-top: 20px;
+  position: relative;
+}
+
+.testimonials .swiper-pagination .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
   opacity: 1;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
-ul li ul li {
-  display: block;
-  white-space: nowrap;
-  background-color: #444;
-  border-radius: 20px;
-  margin: 5px 0;
-}
-
-ul li ul li:first-child {
-  margin-top: 10px;
-}
-
-ul li ul li:last-child {
-  margin-bottom: 10px;
+.testimonials .swiper-pagination .swiper-pagination-bullet-active {
+  background-color: #18d26e;
 }
 
 /*--------------------------------------------------------------
