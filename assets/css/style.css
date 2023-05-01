@@ -541,6 +541,97 @@ section .container {
 .interests .icon-box:hover {
   background: rgba(255, 255, 255, 0.12);
 }
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/gojs/release/go.js"></script>
+    <style>
+      #myDiagramDiv {
+        height: 600px;
+        background-color: black;
+      }
+      .go-Label {
+        font-size: 14pt;
+        margin: 10px;
+        text-align: center;
+        color: white;
+      }
+      .go-Link {
+        stroke: white;
+      }
+      .go-Icon {
+        fill: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="myDiagramDiv"></div>
+    <script>
+      var $ = go.GraphObject.make;
+
+      var myDiagram = $(go.Diagram, "myDiagramDiv", {
+        initialContentAlignment: go.Spot.Center,
+        "undoManager.isEnabled": true
+      });
+
+      myDiagram.nodeTemplate = $(
+        go.Node,
+        "Auto",
+        {
+          width: 200,
+          height: 80,
+          margin: 4,
+          background: "#333333",
+          mouseEnter: function(e, obj) {
+            obj.findObject("icon").opacity = 0.9;
+          },
+          mouseLeave: function(e, obj) {
+            obj.findObject("icon").opacity = 0.5;
+          }
+        },
+        $(go.Shape, "RoundedRectangle", { fill: "#EFEFEF" }),
+        $(
+          go.Picture,
+          {
+            name: "icon",
+            desiredSize: new go.Size(40, 40),
+            margin: new go.Margin(6, 8, 6, 10)
+          },
+          new go.Binding("source")
+        ),
+        $(
+          go.TextBlock,
+          {
+            font: "bold 14pt Helvetica, Arial, sans-serif",
+            margin: new go.Margin(6, 10, 6, 0),
+            alignment: go.Spot.Left
+          },
+          new go.Binding("text")
+        )
+      );
+
+      myDiagram.linkTemplate = $(
+        go.Link,
+        { routing: go.Link.AvoidsNodes },
+        $(go.Shape, { strokeWidth: 2 })
+      );
+
+      myDiagram.model = $(go.GraphLinksModel, {
+        nodeDataArray: [
+          { key: "Forensic Anthropology", text: "Forensic Anthropology", source: "https://i.imgur.com/pHfJhYv.png" },
+          { key: "Evolutionary Biology", text: "Evolutionary Biology", source: "https://i.imgur.com/tTZhBy1.png" },
+          { key: "Genomics", text: "Genomics", source: "https://i.imgur.com/iN1Yh8p.png" },
+          { key: "Bioinformatics", text: "Bioinformatics", source: "https://i.imgur.com/ASUvYfl.png" }
+        ],
+        linkDataArray: [
+          { from: "Forensic Anthropology", to: "Evolutionary Biology" },
+          { from: "Evolutionary Biology", to: "Genomics" },
+          { from: "Genomics", to: "Bioinformatics" }
+        ]
+      });
+    </script>
+  </body>
+</html>
 
 /*--------------------------------------------------------------
 # Testimonials
