@@ -544,7 +544,8 @@ section .container {
     </script>
   </body>
 </html>
-.mindmap {
+
+.intersts .mindmap {
   font-size: 16px;
   font-family: Arial, sans-serif;
   line-height: 1.5;
