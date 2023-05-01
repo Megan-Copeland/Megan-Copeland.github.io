@@ -246,7 +246,96 @@
           </div>
         </div>
       </div>
+<!-- Include the D3.js library -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
 
+<!-- Create a div for the mind map visualization -->
+<div id="mindmap"></div>
+
+<!-- Create a script to generate the mind map -->
+<script>
+// Define the data for the mind map
+const data = {
+  name: "Forensic Anthropology",
+  children: [
+    {
+      name: "Human Osteology",
+      children: [
+        { name: "Anatomy" },
+        { name: "Pathology" },
+        { name: "Trauma" },
+      ],
+    },
+    {
+      name: "Forensic Taphonomy",
+      children: [
+        { name: "Decomposition" },
+        { name: "Depositional Environment" },
+        { name: "Postmortem Interval" },
+      ],
+    },
+    {
+      name: "Genomics and Bioinformatics",
+      children: [
+        { name: "DNA Sequencing" },
+        { name: "Evolutionary Biology" },
+        { name: "Bioinformatics Tools" },
+      ],
+    },
+  ],
+};
+
+// Define the dimensions of the mind map visualization
+const width = 960;
+const height = 600;
+
+// Create the D3.js hierarchy layout and set the dimensions
+const layout = d3.tree().size([height, width]);
+
+// Create the D3.js SVG canvas and set the dimensions
+const svg = d3
+  .select("#mindmap")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height)
+  .append("g")
+  .attr("transform", "translate(40,0)");
+
+// Create a D3.js hierarchy from the data
+const root = d3.hierarchy(data);
+
+// Assign positions to the hierarchy nodes using the D3.js layout
+layout(root);
+
+// Create the links between the hierarchy nodes
+const link = svg
+  .selectAll(".link")
+  .data(root.links())
+  .enter()
+  .append("path")
+  .attr("class", "link")
+  .attr("d", d3.linkHorizontal().x((d) => d.y).y((d) => d.x));
+
+// Create the nodes for the hierarchy
+const node = svg
+  .selectAll(".node")
+  .data(root.descendants())
+  .enter()
+  .append("g")
+  .attr("class", "node")
+  .attr("transform", (d) => `translate(${d.y},${d.x})`);
+
+// Add circles to the nodes
+node.append("circle").attr("r", 6);
+
+// Add labels to the nodes
+node
+  .append("text")
+  .attr("dy", ".35em")
+  .attr("x", (d) => (d.children ? -8 : 8))
+  .attr("text-anchor", (d) => (d.children ? "end" : "start"))
+  .text((d) => d.data.name);
+</script>
     </div><!-- End Interests -->
 
   </section><!-- End About Section -->
