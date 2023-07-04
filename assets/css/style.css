@@ -81,7 +81,7 @@ h6 {
 
 #header h1 a,
 #header h1 a:hover {
-  color: black;
+  color: gray;
   line-height: 1;
   display: inline-block;
 }
