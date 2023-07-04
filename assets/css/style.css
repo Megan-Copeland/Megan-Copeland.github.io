@@ -11,7 +11,7 @@
 body {
   font-family: "Open Sans", sans-serif;
   background-color: #040404;
-  color: black;
+  color: white;
   position: relative;
   background: transparent;
 }
@@ -81,19 +81,19 @@ h6 {
 
 #header h1 a,
 #header h1 a:hover {
-  color: gray;
-  line-height: 1;
+  color: white;
+  line-height: ;
   display: inline-block;
 }
 
 #header h2 {
   font-size: 24px;
-  margin-top: 20px;
-  color: rgba(255, 255, 255, 0.8);
+  margin-top: 10px;
+  color: white;
 }
 
 #header h2 span {
-  color: black;
+  color: white;
   border-bottom: 2px solid #18d26e;
   padding-bottom: 6px;
 }
@@ -114,12 +114,12 @@ h6 {
   justify-content: center;
   align-items: center;
   background: rgba(255, 255, 255, 0.1);
-  color: black;
+  color: white;
   line-height: 1;
   margin-right: 8px;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 55px;
+  height: 55px;
 }
 
 #header .social-links a:hover {
@@ -132,8 +132,9 @@ h6 {
   }
 
   #header h2 {
-    font-size: 20px;
+    font-size: 25px;
     line-height: 30px;
+    font-weight: 700
   }
 
   #header .social-links {
@@ -194,7 +195,7 @@ h6 {
 */
 .navbar {
   padding: 0;
-  margin-top: 35px;
+  margin-top: 20px;
 }
 
 .navbar ul {
@@ -220,16 +221,16 @@ h6 {
   justify-content: space-between;
   padding: 0;
   font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
   white-space: nowrap;
   transition: 0.3s;
 }
 
 .navbar a i,
 .navbar a:focus i {
-  font-size: 12px;
+  font-size: 15px;
   line-height: 0;
   margin-left: 5px;
 }
@@ -247,13 +248,6 @@ h6 {
   transition: all 0.3s ease-in-out 0s;
 }
 
-.navbar a:hover:before,
-.navbar li:hover>a:before,
-.navbar .active:before {
-  visibility: visible;
-  width: 25px;
-}
-
 .navbar a:hover,
 .navbar .active,
 .navbar .active:focus,
@@ -261,6 +255,9 @@ h6 {
   color: #fff;
 }
 
+.navbar a:hover {
+  background: #18d26e;
+}
 /**
 * Mobile Navigation 
 */
