@@ -38,42 +38,50 @@
 
   /**
    * Header: collapse to sticky bar when scrolled past the hero.
-   * A spacer div fills the space the header occupied so content
-   * doesn't jump when the header becomes position:fixed.
+   *
+   * When the header switches from in-flow (100vh) to fixed (80px),
+   * the spacer fills the gap so content doesn't jump. We also
+   * suppress the scroll listener briefly to avoid a feedback loop.
    */
   const header = select('#header')
   const spacer = select('#header-spacer')
   let heroHeight = header ? header.offsetHeight : 0
   let isFixed = false
+  let suppressScroll = false
 
   function updateHeader() {
-    if (!header || !spacer) return
+    if (!header || !spacer || suppressScroll) return
 
-    if (window.scrollY >= heroHeight - 80) {
-      if (!isFixed) {
-        isFixed = true
-        header.classList.add('header-top')
-        spacer.style.height = heroHeight + 'px'
-      }
-    } else {
-      if (isFixed) {
-        isFixed = false
-        header.classList.remove('header-top')
-        spacer.style.height = '0px'
-      }
+    const triggerPoint = heroHeight - 80
+
+    if (!isFixed && window.scrollY >= triggerPoint) {
+      suppressScroll = true
+      isFixed = true
+      spacer.style.height = heroHeight + 'px'
+      header.classList.add('header-top')
+      // No scroll adjustment needed — spacer exactly replaces the header's flow space
+      requestAnimationFrame(() => { suppressScroll = false })
+    }
+    else if (isFixed && window.scrollY < 80) {
+      // Only un-fix when user has scrolled back near the very top
+      suppressScroll = true
+      isFixed = false
+      header.classList.remove('header-top')
+      spacer.style.height = '0px'
+      window.scrollTo({ top: 0, behavior: 'auto' })
+      requestAnimationFrame(() => { suppressScroll = false })
     }
 
     updateActiveNav()
   }
 
-  // Recalculate hero height on resize
   window.addEventListener('resize', () => {
     if (!isFixed) {
       heroHeight = header ? header.offsetHeight : 0
     }
   })
 
-  window.addEventListener('scroll', updateHeader)
+  window.addEventListener('scroll', updateHeader, { passive: true })
   window.addEventListener('load', updateHeader)
 
   /**
@@ -84,7 +92,7 @@
     const navlinks = select('#navbar .nav-link', true)
     let currentSection = ''
 
-    if (window.scrollY < heroHeight - 200) {
+    if (window.scrollY < 80) {
       currentSection = '#header'
     } else {
       sections.forEach((section) => {
@@ -124,9 +132,18 @@
       }
 
       if (targetHash === '#header') {
+        // Scroll to top and restore the hero
         window.scrollTo({ top: 0, behavior: 'smooth' })
       } else {
-        target.scrollIntoView({ behavior: 'smooth' })
+        // Make sure header is fixed before scrolling to a section
+        if (!isFixed) {
+          isFixed = true
+          spacer.style.height = heroHeight + 'px'
+          header.classList.add('header-top')
+        }
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth' })
+        }, 10)
       }
     }
   }, true)
@@ -139,6 +156,11 @@
       let target = select(window.location.hash)
       if (target) {
         setTimeout(function() {
+          if (!isFixed) {
+            isFixed = true
+            spacer.style.height = heroHeight + 'px'
+            header.classList.add('header-top')
+          }
           target.scrollIntoView({ behavior: 'smooth' })
         }, 100)
       }
