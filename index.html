@@ -55,7 +55,6 @@
           <li><a class="nav-link" href="#about">About</a></li>
           <li><a class="nav-link" href="#research">Research</a></li>
           <li><a class="nav-link" href="#experience">Experience</a></li>
-          <li><a class="nav-link" href="#publications">Publications</a></li>
           <li><a class="nav-link" href="#teaching">Teaching</a></li>
           <li><a class="nav-link" href="#cv">CV</a></li>
           <li><a class="nav-link" href="#contact">Contact</a></li>
@@ -65,6 +64,9 @@
 
     </div>
   </header><!-- End Header -->
+
+  <!-- Spacer: prevents content jump when header becomes fixed -->
+  <div id="header-spacer"></div>
 
   <!-- ======= About Section ======= -->
   <section id="about" class="about">
@@ -121,64 +123,92 @@
   </section><!-- End About Section -->
 
   <!-- ======= Research Section ======= -->
-  <section id="research" class="services">
+  <section id="research" class="resume">
     <div class="container">
 
       <div class="section-title">
         <h2>Research</h2>
-        <p>Current projects and research interests</p>
+        <p>Current projects by stage</p>
       </div>
 
       <div class="row">
 
-        <div class="col-lg-6 col-md-6 d-flex align-items-stretch">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-dna"></i></div>
-            <h4>Genome Structure &amp; Evolution</h4>
+        <!-- Published -->
+        <div class="col-lg-4">
+          <h3 class="resume-title">Published</h3>
+
+          <div class="resume-item">
+            <h4>Genome Assembly of the Southern Pine Beetle</h4>
+            <p><em><a href="https://royalsocietypublishing.org/rsos/article/11/12/240755/92436"
+              target="_blank" rel="noopener">Royal Society Open Science</a></em></p>
             <p>
-              I study how genome architecture changes across species, with a focus on
-              repeat content, gene content reduction, and structural variation. My work on
-              <em>Dendroctonus</em> bark beetles produced a chromosome-level genome assembly
-              and revealed patterns of gene loss linked to genome restructuring.
+              <strong>Copeland M.</strong> et al. Chromosome-level genome assembly of
+              <em>Dendroctonus frontalis</em> revealing the origins of gene content
+              reduction in <em>Dendroctonus</em>.
+            </p>
+          </div>
+
+          <div class="resume-item">
+            <h4>DirectRepeatR: R Package for Annotating Direct Repeats</h4>
+            <p><em><a href="https://f1000research.com/articles/14-1147"
+              target="_blank" rel="noopener">F1000Research</a></em></p>
+            <p>
+              <strong>Copeland M.</strong>, Barboza A., Romanowski J., Adelman Z., Blackmon H.
+              Open-source R package for annotating direct repeats in genome assemblies.
+            </p>
+          </div>
+
+          <div class="resume-item">
+            <h4>Forensic Case Report for the Bonner County Coroner</h4>
+            <p><em><a href="https://scholarworks.umt.edu/cgi/viewcontent.cgi?article=12918&context=etd"
+              target="_blank" rel="noopener">University of Montana ScholarWorks</a> &middot; M.A. Thesis</em></p>
+            <p>
+              <strong>Copeland M.</strong> A comprehensive forensic case report: case #20-100.
             </p>
           </div>
         </div>
 
-        <div class="col-lg-6 col-md-6 d-flex align-items-stretch">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-scatter-chart"></i></div>
-            <h4>Chromosome Number Evolution</h4>
+        <!-- Under Review -->
+        <div class="col-lg-4">
+          <h3 class="resume-title">Under Review</h3>
+
+          <div class="resume-item">
+            <h4>Thyroid Regulation in Teleost Fish</h4>
             <p>
-              Using a dataset of over 63,000 karyotypes, I am characterizing rates and
-              patterns of chromosomal evolution across eukaryotes. This includes work on how
-              mating systems shape karyotype diversification in angiosperms and broad-scale
-              comparisons across the tree of life.
+              Eales J.G., <strong>Copeland M.</strong>, and MacKenzie D.S.
+              Peripheral and central regulation of thyroid status in teleost fish with
+              particular reference to salmonids and smoltification.
+            </p>
+          </div>
+
+          <div class="resume-item">
+            <h4>Trait Atomization in Line Cross Analyses</h4>
+            <p>
+              Burch J., Nava C., <strong>Copeland M.</strong>, Blackmon H.
+              Failures to atomize traits leads to systemic failure in line cross analyses.
             </p>
           </div>
         </div>
 
-        <div class="col-lg-6 col-md-6 d-flex align-items-stretch mt-4">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-code-alt"></i></div>
-            <h4>Bioinformatics Tool Development</h4>
+        <!-- In Preparation -->
+        <div class="col-lg-4">
+          <h3 class="resume-title">In Preparation</h3>
+
+          <div class="resume-item">
+            <h4>Mating Systems &amp; Chromosome Evolution in Angiosperms</h4>
             <p>
-              I develop open-source R packages and reproducible pipelines for genome analysis.
-              <strong>DirectRepeatR</strong> annotates direct repeats in genome assemblies, and I have
-              built workflows for assembly QC, repeat annotation, and comparative genomics
-              using HPC clusters.
+              <strong>Copeland M.</strong>, Barboza A., Ugochukwu P., Blackmon H.
+              Self-compatibility weakens barriers to karyotypic change and increases the
+              rate of chromosome evolution in angiosperms.
             </p>
           </div>
-        </div>
 
-        <div class="col-lg-6 col-md-6 d-flex align-items-stretch mt-4">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-male-female"></i></div>
-            <h4>Sex Chromosome Evolution</h4>
+          <div class="resume-item">
+            <h4>Rates of Chromosome Number Evolution Across Eukaryotes</h4>
             <p>
-              I investigate how sex chromosomes originate and diverge, including the evolution
-              of pseudoautosomal regions (PARs) in mammals. This work combines phylogenetic
-              comparative methods with genomic data to understand the forces shaping sex
-              chromosome architecture.
+              <strong>Copeland M.</strong> et al.
+              Chromosome number evolves at rates spanning seven orders of magnitude
+              across eukaryotes.
             </p>
           </div>
         </div>
@@ -358,103 +388,6 @@
       </div>
     </div>
   </section><!-- End CV Section -->
-
-  <!-- ======= Publications Section ======= -->
-  <section id="publications" class="services">
-    <div class="container">
-
-      <div class="section-title">
-        <h2>Publications</h2>
-        <p>Published, under review, and in preparation</p>
-      </div>
-
-      <div class="row">
-
-        <!-- Published -->
-        <div class="col-lg-6 col-md-6 d-flex align-items-stretch">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-book-open"></i></div>
-            <h4>
-              <a href="https://royalsocietypublishing.org/rsos/article/11/12/240755/92436"
-                target="_blank" rel="noopener">
-                Genome assembly of the southern pine beetle
-              </a>
-            </h4>
-            <p>
-              <strong>Copeland M.</strong> et al. <em>Royal Society Open Science</em>.<br>
-              Genome assembly of <em>Dendroctonus frontalis</em> reveals the origins of gene content reduction in <em>Dendroctonus</em>.
-            </p>
-          </div>
-        </div>
-
-        <div class="col-lg-6 col-md-6 d-flex align-items-stretch">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-book-open"></i></div>
-            <h4>
-              <a href="https://f1000research.com/articles/14-1147"
-                target="_blank" rel="noopener">
-                DirectRepeatR: R package for annotating direct repeats
-              </a>
-            </h4>
-            <p>
-              <strong>Copeland M.</strong>, Barboza A., Romanowski J., Adelman Z., Blackmon H. <em>F1000Research</em>.<br>
-              R package for annotating direct repeats in genome assemblies.
-            </p>
-          </div>
-        </div>
-
-        <!-- Under review -->
-        <div class="col-lg-6 col-md-6 d-flex align-items-stretch mt-4">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-time"></i></div>
-            <h4>Under Review</h4>
-            <p>
-              Eales J.G., <strong>Copeland M.</strong>, and MacKenzie D.S.
-              Peripheral and central regulation of thyroid status in teleost fish with particular reference to salmonids and smoltification.
-            </p>
-            <p>
-              Burch J., Nava C., <strong>Copeland M.</strong>, Blackmon H.
-              Failures to atomize traits leads to systemic failure in line cross analyses.
-            </p>
-          </div>
-        </div>
-
-        <!-- In preparation -->
-        <div class="col-lg-6 col-md-6 d-flex align-items-stretch mt-4">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-edit"></i></div>
-            <h4>In Preparation</h4>
-            <p>
-              <strong>Copeland M.</strong>, Barboza A., Ugochukwu P., Blackmon H.
-              Self-compatibility weakens barriers to karyotypic change and increases the rate of chromosome evolution in angiosperms.
-            </p>
-            <p>
-              <strong>Copeland M.</strong> et al.
-              Chromosome number evolves at rates spanning seven orders of magnitude across eukaryotes.
-            </p>
-          </div>
-        </div>
-
-        <!-- Thesis -->
-        <div class="col-lg-12 col-md-12 d-flex align-items-stretch mt-4">
-          <div class="icon-box">
-            <div class="icon"><i class="bx bx-file"></i></div>
-            <h4>
-              <a href="https://scholarworks.umt.edu/cgi/viewcontent.cgi?article=12918&context=etd"
-                target="_blank" rel="noopener">
-                A comprehensive forensic case report for the Bonner County coroner: case #20-100
-              </a>
-            </h4>
-            <p>
-              M.A. Thesis &middot; University of Montana ScholarWorks.
-            </p>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section><!-- End Publications Section -->
 
   <!-- ======= Teaching & Mentorship Section ======= -->
   <section id="teaching" class="resume">

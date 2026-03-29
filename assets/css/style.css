@@ -59,7 +59,7 @@ h6 {
 #header {
   transition: ease-in-out 0.3s;
   position: relative;
-  height: 160vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   z-index: 997;
@@ -149,7 +149,7 @@ h6 {
   }
 }
 
-/* Header Top */
+/* Header Top — sticky compact header when scrolled past hero */
 #header.header-top {
   height: 80px;
   position: fixed;
@@ -186,6 +186,12 @@ h6 {
   #header.header-top h1 {
     font-size: 26px;
   }
+}
+
+/* Scroll offset for fixed header */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
 }
 
 /*--------------------------------------------------------------
@@ -336,35 +342,16 @@ h6 {
 --------------------------------------------------------------*/
 section {
   overflow: hidden;
-  position: absolute;
+  position: relative;
   width: 100%;
-  top: 140px;
-  bottom: 100%;
-  opacity: 0;
-  transition: ease-in-out 0.4s;
-  z-index: 2;
-}
-
-section.section-show {
-  top: 100px;
-  bottom: auto;
   opacity: 1;
+  z-index: 2;
   padding-bottom: 45px;
 }
 
 section .container {
   background: rgba(0, 0, 0, 0.9);
   padding: 30px;
-}
-
-@media (max-width: 768px) {
-  section {
-    top: 120px;
-  }
-
-  section.section-show {
-    top: 80px;
-  }
 }
 
 .section-title h2 {

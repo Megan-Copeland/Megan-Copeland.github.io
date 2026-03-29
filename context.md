@@ -1,36 +1,41 @@
 # Project Context: Megan-Copeland.github.io
 
 ## Overview
-Personal academic/professional website for Megan Copeland, a Biology PhD candidate at Texas A&M University (graduating May 2026). Built with a BootstrapMade "Personal" template.
+Personal academic/professional website for Megan Copeland, a Biology PhD candidate at Texas A&M University (graduating May 2026). Built with a BootstrapMade "Personal" template, heavily modified for scrollable layout.
 
 ## Current State (March 2026 — post-revision)
-The site has been significantly expanded from its original 4-section layout. It now includes:
+The site has been converted from a single-section-at-a-time layout to a fully scrollable page. All sections are visible in sequence and the nav bar links also work for jumping directly to sections.
 
-- **Header nav**: Home, About, Research, Experience, Publications, Teaching, CV, Contact
-- **About**: Bio paragraph + contact details + headshot (unchanged)
-- **Research** (NEW): Four project cards — Genome Structure & Evolution, Chromosome Number Evolution, Bioinformatics Tool Development, Sex Chromosome Evolution
-- **Experience** (NEW): Two-column layout — Research positions (PhD RA, Forensic Casework, Operation ID internship) and Scientific Writing & Publishing (JEI Copy Editor, GSA Peer Reviewer, Invited Speaker & Workshop Leader)
-- **Publications** (EXPANDED): Now includes published papers, under-review manuscripts (titles only, no journal names), in-prep manuscripts, and the M.A. thesis. Fixed "coronser" → "coroner" typo.
-- **Teaching & Mentorship** (NEW): Lists six named undergraduate mentees with project topics, plus TA history and microteaching role
-- **CV**: Education, expanded skills (now includes scientific writing category), awards. Links to Google Doc for full CV.
+### Layout
+- **Header/Hero**: Full-viewport intro with name, tagline, and nav. Collapses to a sticky compact bar when user scrolls past it.
+- **Spacer div** (`#header-spacer`): Dynamically sized by JS to prevent content jump when header becomes fixed.
+- **Sections flow**: About → Research → Experience → Teaching → CV → Contact
+
+### Section Details
+- **About**: Bio, headshot, contact details
+- **Research**: Three-column layout — Published, Under Review, In Preparation. Each project listed with title, authors, and description. Published items link to journals.
+- **Experience**: Two-column — Research positions (PhD RA, Forensic Casework, Operation ID) and Scientific Writing & Publishing (JEI Copy Editor, GSA Peer Reviewer, Invited Speaker)
+- **Teaching & Mentorship**: Research mentees (6 named students with topics) and TA history
+- **CV**: Education, skills (including scientific writing category), awards. Links to Google Doc.
 - **Contact**: Location, email, website, social links (GitHub, LinkedIn, Google Scholar, ORCID)
 
-## Changes Made (March 27, 2026)
-1. Added Research section with four project description cards
-2. Added Experience section with research + scientific writing/publishing positions
-3. Added Teaching & Mentorship section with mentees and TA history
-4. Added "Scientific writing" skill category (peer review, copy editing, Editorial Manager, ScholarOne)
-5. Expanded Publications to include under-review and in-prep manuscripts
-6. Fixed typo: "coronser" → "coroner"
-7. Updated PhD date from "2022 - Present" to "2022 – 2026 (expected May)"
-8. Added ORCID link (0009-0005-1397-6867) to social links
-9. Replaced portfolio-details.html placeholder with a redirect to index.html
-10. Removed duplicate meta charset/viewport tags
-11. Updated nav bar with links to all new sections
+### Key Technical Changes
+- CSS: Sections changed from `position: absolute; opacity: 0` to `position: relative; opacity: 1`
+- CSS: Added `scroll-behavior: smooth; scroll-padding-top: 100px` to html
+- CSS: Header hero reduced from 160vh to 100vh
+- JS: Replaced show/hide toggle with scroll listener + spacer for sticky header transition
+- JS: Added scroll-spy for active nav highlighting
+- Removed unused portfolio-details.html (replaced with redirect)
+
+## Files Modified
+- `index.html` — all content changes
+- `assets/css/style.css` — scrollable layout CSS
+- `assets/js/main.js` — scroll-based navigation JS
+- `portfolio-details.html` — replaced with redirect to index.html
+- `context.md` — this file
 
 ## Remaining / Future Improvements
 - Replace Google Doc CV link with a hosted PDF
 - Update "Ph.D. Candidate" to "Ph.D." once degree is conferred
-- Consider adding a Leadership & Outreach section (conference organizing, judging, Darwin Day)
-- Consider adding Presentations / Talks section if desired
-- ORCID iD: 0009-0005-1397-6867
+- Consider adding Leadership & Outreach section
+- ORCID iD: 0009-0005-1397-6867 (placeholder — confirm correct)

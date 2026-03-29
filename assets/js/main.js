@@ -1,5 +1,5 @@
 /**
-* Template Name: Personal - v4.9.0
+* Template Name: Personal - v4.9.0 (modified for scrollable layout)
 * Template URL: https://bootstrapmade.com/personal-free-resume-bootstrap-template/
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
@@ -7,9 +7,6 @@
 (function() {
   "use strict";
 
-  /**
-   * Easy selector helper function
-   */
   const select = (el, all = false) => {
     el = el.trim()
     if (all) {
@@ -19,12 +16,8 @@
     }
   }
 
-  /**
-   * Easy event listener function
-   */
   const on = (type, el, listener, all = false) => {
     let selectEl = select(el, all)
-
     if (selectEl) {
       if (all) {
         selectEl.forEach(e => e.addEventListener(type, listener))
@@ -32,16 +25,6 @@
         selectEl.addEventListener(type, listener)
       }
     }
-  }
-
-  /**
-   * Scrolls to an element with header offset
-   */
-  const scrollto = (el) => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    })
   }
 
   /**
@@ -54,24 +37,85 @@
   })
 
   /**
-   * Scrool with ofset on links with a class name .scrollto
+   * Header: collapse to sticky bar when scrolled past the hero.
+   * A spacer div fills the space the header occupied so content
+   * doesn't jump when the header becomes position:fixed.
+   */
+  const header = select('#header')
+  const spacer = select('#header-spacer')
+  let heroHeight = header ? header.offsetHeight : 0
+  let isFixed = false
+
+  function updateHeader() {
+    if (!header || !spacer) return
+
+    if (window.scrollY >= heroHeight - 80) {
+      if (!isFixed) {
+        isFixed = true
+        header.classList.add('header-top')
+        spacer.style.height = heroHeight + 'px'
+      }
+    } else {
+      if (isFixed) {
+        isFixed = false
+        header.classList.remove('header-top')
+        spacer.style.height = '0px'
+      }
+    }
+
+    updateActiveNav()
+  }
+
+  // Recalculate hero height on resize
+  window.addEventListener('resize', () => {
+    if (!isFixed) {
+      heroHeight = header ? header.offsetHeight : 0
+    }
+  })
+
+  window.addEventListener('scroll', updateHeader)
+  window.addEventListener('load', updateHeader)
+
+  /**
+   * Scroll-spy: highlight the nav link for whichever section is in view
+   */
+  function updateActiveNav() {
+    const sections = select('section', true)
+    const navlinks = select('#navbar .nav-link', true)
+    let currentSection = ''
+
+    if (window.scrollY < heroHeight - 200) {
+      currentSection = '#header'
+    } else {
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop - 120
+        if (window.scrollY >= sectionTop) {
+          currentSection = '#' + section.getAttribute('id')
+        }
+      })
+    }
+
+    navlinks.forEach((link) => {
+      link.classList.remove('active')
+      if (link.getAttribute('href') === currentSection) {
+        link.classList.add('active')
+      }
+    })
+  }
+
+  /**
+   * Nav link click: smooth scroll to section
    */
   on('click', '#navbar .nav-link', function(e) {
-    let section = select(this.hash)
-    if (section) {
+    let targetHash = this.hash
+    let target = targetHash === '#header' ? header : select(targetHash)
+
+    if (target) {
       e.preventDefault()
 
       let navbar = select('#navbar')
-      let header = select('#header')
-      let sections = select('section', true)
-      let navlinks = select('#navbar .nav-link', true)
 
-      navlinks.forEach((item) => {
-        item.classList.remove('active')
-      })
-
-      this.classList.add('active')
-
+      // Close mobile nav if open
       if (navbar.classList.contains('navbar-mobile')) {
         navbar.classList.remove('navbar-mobile')
         let navbarToggle = select('.mobile-nav-toggle')
@@ -79,63 +123,27 @@
         navbarToggle.classList.toggle('bi-x')
       }
 
-      if (this.hash == '#header') {
-        header.classList.remove('header-top')
-        sections.forEach((item) => {
-          item.classList.remove('section-show')
-        })
-        return;
-      }
-
-      if (!header.classList.contains('header-top')) {
-        header.classList.add('header-top')
-        setTimeout(function() {
-          sections.forEach((item) => {
-            item.classList.remove('section-show')
-          })
-          section.classList.add('section-show')
-
-        }, 350);
+      if (targetHash === '#header') {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
       } else {
-        sections.forEach((item) => {
-          item.classList.remove('section-show')
-        })
-        section.classList.add('section-show')
+        target.scrollIntoView({ behavior: 'smooth' })
       }
-
-      scrollto(this.hash)
     }
   }, true)
 
   /**
-   * Activate/show sections on load with hash links
+   * Handle hash links on page load
    */
   window.addEventListener('load', () => {
     if (window.location.hash) {
-      let initial_nav = select(window.location.hash)
-
-      if (initial_nav) {
-        let header = select('#header')
-        let navlinks = select('#navbar .nav-link', true)
-
-        header.classList.add('header-top')
-
-        navlinks.forEach((item) => {
-          if (item.getAttribute('href') == window.location.hash) {
-            item.classList.add('active')
-          } else {
-            item.classList.remove('active')
-          }
-        })
-
+      let target = select(window.location.hash)
+      if (target) {
         setTimeout(function() {
-          initial_nav.classList.add('section-show')
-        }, 350);
-
-        scrollto(window.location.hash)
+          target.scrollIntoView({ behavior: 'smooth' })
+        }, 100)
       }
     }
-  });
+  })
 
   /**
    * Skills animation
@@ -171,81 +179,13 @@
       clickable: true
     },
     breakpoints: {
-      320: {
-        slidesPerView: 1,
-        spaceBetween: 20
-      },
-
-      1200: {
-        slidesPerView: 3,
-        spaceBetween: 20
-      }
+      320: { slidesPerView: 1, spaceBetween: 20 },
+      1200: { slidesPerView: 3, spaceBetween: 20 }
     }
   });
 
   /**
-   * Porfolio isotope and filter
-   */
-  window.addEventListener('load', () => {
-    let portfolioContainer = select('.portfolio-container');
-    if (portfolioContainer) {
-      let portfolioIsotope = new Isotope(portfolioContainer, {
-        itemSelector: '.portfolio-item',
-        layoutMode: 'fitRows'
-      });
-
-      let portfolioFilters = select('#portfolio-flters li', true);
-
-      on('click', '#portfolio-flters li', function(e) {
-        e.preventDefault();
-        portfolioFilters.forEach(function(el) {
-          el.classList.remove('filter-active');
-        });
-        this.classList.add('filter-active');
-
-        portfolioIsotope.arrange({
-          filter: this.getAttribute('data-filter')
-        });
-      }, true);
-    }
-
-  });
-
-  /**
-   * Initiate portfolio lightbox 
-   */
-  const portfolioLightbox = GLightbox({
-    selector: '.portfolio-lightbox'
-  });
-
-  /**
-   * Initiate portfolio details lightbox 
-   */
-  const portfolioDetailsLightbox = GLightbox({
-    selector: '.portfolio-details-lightbox',
-    width: '90%',
-    height: '90vh'
-  });
-
-  /**
-   * Portfolio details slider
-   */
-  new Swiper('.portfolio-details-slider', {
-    speed: 400,
-    loop: true,
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      type: 'bullets',
-      clickable: true
-    }
-  });
-
-  /**
-   * Initiate Pure Counter 
+   * Initiate Pure Counter
    */
   new PureCounter();
 
