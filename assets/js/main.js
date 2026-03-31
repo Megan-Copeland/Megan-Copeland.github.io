@@ -37,39 +37,45 @@
   })
 
   /**
-   * Header: collapse to sticky bar when scrolled past the hero.
+   * Header state management.
    *
-   * When the header switches from in-flow (100vh) to fixed (80px),
-   * the spacer fills the gap so content doesn't jump. We also
-   * suppress the scroll listener briefly to avoid a feedback loop.
+   * The hero header is 100vh and in normal flow. When the user scrolls
+   * past it (or clicks a nav link), it collapses to a fixed 80px bar
+   * and a spacer fills the vacated space so content doesn't jump.
+   *
+   * `navClicked` prevents the scroll listener from fighting with
+   * nav-click-initiated transitions.
    */
   const header = select('#header')
   const spacer = select('#header-spacer')
   let heroHeight = header ? header.offsetHeight : 0
   let isFixed = false
-  let suppressScroll = false
+  let navClicked = false  // true while a nav-click scroll is in progress
 
-  function updateHeader() {
-    if (!header || !spacer || suppressScroll) return
+  function fixHeader() {
+    if (isFixed) return
+    isFixed = true
+    spacer.style.height = heroHeight + 'px'
+    header.classList.add('header-top')
+  }
 
-    const triggerPoint = heroHeight - 80
+  function unfixHeader() {
+    if (!isFixed) return
+    isFixed = false
+    header.classList.remove('header-top')
+    spacer.style.height = '0px'
+  }
 
-    if (!isFixed && window.scrollY >= triggerPoint) {
-      suppressScroll = true
-      isFixed = true
-      spacer.style.height = heroHeight + 'px'
-      header.classList.add('header-top')
-      // No scroll adjustment needed — spacer exactly replaces the header's flow space
-      requestAnimationFrame(() => { suppressScroll = false })
-    }
-    else if (isFixed && window.scrollY < 80) {
-      // Only un-fix when user has scrolled back near the very top
-      suppressScroll = true
-      isFixed = false
-      header.classList.remove('header-top')
-      spacer.style.height = '0px'
-      window.scrollTo({ top: 0, behavior: 'auto' })
-      requestAnimationFrame(() => { suppressScroll = false })
+  function onScroll() {
+    if (!header || !spacer) return
+
+    // Don't interfere while a nav click is scrolling us to a section
+    if (navClicked) return
+
+    if (window.scrollY >= heroHeight - 80) {
+      fixHeader()
+    } else if (window.scrollY < 80) {
+      unfixHeader()
     }
 
     updateActiveNav()
@@ -81,8 +87,8 @@
     }
   })
 
-  window.addEventListener('scroll', updateHeader, { passive: true })
-  window.addEventListener('load', updateHeader)
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('load', onScroll)
 
   /**
    * Scroll-spy: highlight the nav link for whichever section is in view
@@ -112,7 +118,11 @@
   }
 
   /**
-   * Nav link click: smooth scroll to section
+   * Nav link click: smooth scroll to section.
+   *
+   * When clicking from the hero, we fix the header first, then scroll.
+   * `navClicked` stays true until the scroll finishes so the scroll
+   * listener doesn't undo the fix.
    */
   on('click', '#navbar .nav-link', function(e) {
     let targetHash = this.hash
@@ -132,18 +142,23 @@
       }
 
       if (targetHash === '#header') {
-        // Scroll to top and restore the hero
+        // Going home — scroll to top, then unfix
+        navClicked = true
+        unfixHeader()
         window.scrollTo({ top: 0, behavior: 'smooth' })
+        // Release navClicked after scroll settles
+        setTimeout(() => { navClicked = false }, 600)
       } else {
-        // Make sure header is fixed before scrolling to a section
-        if (!isFixed) {
-          isFixed = true
-          spacer.style.height = heroHeight + 'px'
-          header.classList.add('header-top')
-        }
-        setTimeout(() => {
-          target.scrollIntoView({ behavior: 'smooth' })
-        }, 10)
+        // Going to a section — fix header first, then scroll
+        navClicked = true
+        fixHeader()
+
+        // Calculate where the section sits now that the spacer is in place
+        const targetTop = target.offsetTop - 90  // 90px offset for sticky header
+        window.scrollTo({ top: targetTop, behavior: 'smooth' })
+
+        // Release navClicked after scroll animation completes
+        setTimeout(() => { navClicked = false }, 800)
       }
     }
   }, true)
@@ -156,12 +171,11 @@
       let target = select(window.location.hash)
       if (target) {
         setTimeout(function() {
-          if (!isFixed) {
-            isFixed = true
-            spacer.style.height = heroHeight + 'px'
-            header.classList.add('header-top')
-          }
-          target.scrollIntoView({ behavior: 'smooth' })
+          navClicked = true
+          fixHeader()
+          const targetTop = target.offsetTop - 90
+          window.scrollTo({ top: targetTop, behavior: 'smooth' })
+          setTimeout(() => { navClicked = false }, 800)
         }, 100)
       }
     }
