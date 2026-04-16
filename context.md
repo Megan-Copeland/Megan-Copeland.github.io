@@ -13,7 +13,7 @@ The site has been converted from a single-section-at-a-time layout to a fully sc
 
 ### Section Details
 - **About**: Bio, headshot, contact details
-- **Research**: Three-column layout — Published, Under Review, In Preparation. Each project listed with title, authors, and description. Published items link to journals.
+- **Research**: Stacked-row layout (full-width sections) — Published, Under Review, In Preparation, in that order. Each project listed with title, authors, and description. Published items link to journals. Thyroid Regulation in Teleost Fish (Eales, Copeland, MacKenzie) is listed under Published with a link to *General and Comparative Endocrinology* (ScienceDirect).
 - **Experience**: Two-column — Research positions (PhD RA, Forensic Casework, Operation ID) and Scientific Writing & Publishing (JEI Copy Editor, GSA Peer Reviewer, Invited Speaker)
 - **Teaching & Mentorship**: Research mentees (6 named students with topics) and TA history
 - **CV**: Education, skills (including scientific writing category), awards. Links to Google Doc.
